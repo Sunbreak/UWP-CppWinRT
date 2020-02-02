@@ -4,12 +4,14 @@
 
 using namespace winrt;
 using namespace Windows::UI::Xaml;
+using namespace Windows::Devices::Bluetooth::Advertisement;
 
 namespace winrt::UWP_CppWinRT::implementation
 {
     MainPage::MainPage()
     {
         InitializeComponent();
+        bluetoothLEWatcher = BluetoothLEAdvertisementWatcher();
     }
 
     int32_t MainPage::MyProperty()
@@ -22,8 +24,15 @@ namespace winrt::UWP_CppWinRT::implementation
         throw hresult_not_implemented();
     }
 
-    void MainPage::ClickHandler(IInspectable const&, RoutedEventArgs const&)
+    void MainPage::button1_click(IInspectable const&, RoutedEventArgs const&)
     {
-        myButton().Content(box_value(L"Clicked"));
+        OutputDebugString(L"button1_click\n");
+        bluetoothLEWatcher.Start();
+    }
+
+    void MainPage::button2_click(IInspectable const&, RoutedEventArgs const&)
+    {
+        OutputDebugString(L"button2_click\n");
+        bluetoothLEWatcher.Stop();
     }
 }

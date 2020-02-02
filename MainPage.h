@@ -8,10 +8,13 @@ namespace winrt::UWP_CppWinRT::implementation
     {
         MainPage();
 
+        Windows::Devices::Bluetooth::Advertisement::BluetoothLEAdvertisementWatcher bluetoothLEWatcher{ nullptr };
+
         int32_t MyProperty();
         void MyProperty(int32_t value);
 
-        void ClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void button1_click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void button2_click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
     };
 }
 

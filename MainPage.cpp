@@ -12,6 +12,12 @@ namespace winrt::UWP_CppWinRT::implementation
     {
         InitializeComponent();
         bluetoothLEWatcher = BluetoothLEAdvertisementWatcher();
+        bluetoothLEWatcherReceivedToken = bluetoothLEWatcher.Received({ get_weak(), &MainPage::BluetoothLEWatcher_Received });
+    }
+
+    MainPage::~MainPage()
+    {
+        bluetoothLEWatcher.Received(bluetoothLEWatcherReceivedToken);
     }
 
     int32_t MainPage::MyProperty()
@@ -34,5 +40,12 @@ namespace winrt::UWP_CppWinRT::implementation
     {
         OutputDebugString(L"button2_click\n");
         bluetoothLEWatcher.Stop();
+    }
+    
+    void MainPage::BluetoothLEWatcher_Received(BluetoothLEAdvertisementWatcher sender, BluetoothLEAdvertisementReceivedEventArgs args)
+    {
+        auto lifetime = get_strong();
+        
+        OutputDebugString((L"Received " + std::to_wstring(args.BluetoothAddress()) + L"\n").c_str());
     }
 }
